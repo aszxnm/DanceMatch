@@ -79,7 +79,7 @@ class AudoToDance(object):
             print("Loss is:{:.4f}".format(running_loss / len(self.train_dataloader)))
             print("accuracy is {:.4f}".format(accuracy / len(self.train_dataloader)))
             path = os.path.join(logfldr, "Epoch_{}".format(epoch))
-            os.makedirs(path)
+            os.makedirs(path,exist_ok=True)
             path = os.path.join(path, "model_db.pth")
             state_info = {
                 'epoch': epoch,
@@ -226,9 +226,9 @@ def createOptions():
     parser.add_argument("--device", type=str, default="cuda:0")
     parser.add_argument("--test_model", type=str, default=None)
     parser.add_argument("--logfldr", type=str, default='checkpoint')
-    parser.add_argument("--batch_size", type=int, default=50)
+    parser.add_argument("--batch_size", type=int, default=16)
     parser.add_argument("--lr", type=float, default=0.0001)
-    parser.add_argument("--max_epoch", type=int, default=500)
+    parser.add_argument("--max_epoch", type=int, default=50)
     parser.add_argument("--train_audio", type=bool, default=True)
     parser.add_argument("--audio_file", type=str, default=None)
     parser.add_argument("--len_seg", type=int, default=100)

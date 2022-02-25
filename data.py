@@ -5,7 +5,7 @@ import json
 import numpy as np
 
 
-class TrainSet(Dataset):
+class DanceDataloader(Dataset):
 
     def __init__(self, root, args, transforms=None, train=True, test=False):
         self.test = test
@@ -35,30 +35,11 @@ class TrainSet(Dataset):
         else:
             self.data = data[int(0.8 * data_num):, :]
 
-        if transforms is None:
-            normalize = T.Normalize(mean=[0.5], std=[0])
-
-            if self.test or not train:
-                self.transforms = T.Compose([
-                    T.ToTensor(),
-                    normalize
-                ])
-            else:
-                self.transforms = T.Compose([
-                    T.ToTensor(),
-                    normalize
-                ])
-
     def __getitem__(self, index):
 
-        data_path = self.label[index]
-        if self.test:
-            label = self.label[index]
-        else:
-            label = self.label[index]
-
+        label = self.label[index]
         data = self.data[index]
-        #data = self.transforms(data)
+
         return data, label
 
     def __len__(self):
